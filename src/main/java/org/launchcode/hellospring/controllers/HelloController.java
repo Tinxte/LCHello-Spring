@@ -4,44 +4,42 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@ResponseBody
-@RequestMapping("hello")
 public class HelloController {
+    //handle request at path http://localhost:8080/hello
 
-    // handles quest at past /hello
 //    @GetMapping("hello")
 //    @ResponseBody
-//    public String hello() {
+//    public String hello(){
 //        return "Hello, Spring!";
 //    }
 
-
-    //lives /hello/goobye
+    //handle request at path //http://localhost:8080/goodbye
     @GetMapping("goodbye")
-    public String goodbye() {
+    @ResponseBody
+    public String goodbye(){
         return "Goodbye, Spring!";
     }
 
-    //live /hello/hello
-    // Handles request of the form /hello?name=LaunchCode
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String helloWithQueryParam(@RequestParam String name) {
+    //handle requests of the form http://localhost:8080/hello?name=LaunchCode
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
+    @ResponseBody
+    public String helloWithQueryParam(@RequestParam String name){
         return "Hello, " + name + "!";
     }
 
-    // handles requests of the form /hello/LaunchCode
-
-    @GetMapping("name}")
+    //handle requests of the form http://localhost:8080/hello/LaunchCode
+    @GetMapping("hello/{name}")
+    @ResponseBody
     public String helloWithPathParam(@PathVariable String name){
         return "Hello, " + name + "!";
     }
 
-    //lives at hello/form
     @GetMapping("form")
+    @ResponseBody
     public String helloForm() {
         return "<html>" +
                 "<body>" +
-                "<form action = 'hello'>" + // submit a request to /hello
+                "<form action = 'hello' method = 'post'>" + // submit a request to /hello
                 "<input type = 'text' name = 'name' >" +
                 "<input type = 'submit' value = 'Greet Me!' >" +
                 "</form>" +
